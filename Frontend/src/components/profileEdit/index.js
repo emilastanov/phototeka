@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style.scss';
+import style from './style';
 import axios from 'axios';
 import { connect } from 'redux-zero/preact';
 import cookie from 'react-cookies';
@@ -22,7 +22,7 @@ class ProfileEdit extends Component {
 		}).then((res) => {
 			this.props.setNewDescription(this._Input.value);
 			this.setState({ stChaged: true });
-		});
+		}).catch((err) => {});
 	};
 
 	setPhoto = (event) => {
@@ -56,36 +56,31 @@ class ProfileEdit extends Component {
 		this.setState({ stChaged: false });
 	}
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
-			<div class='header__c'>
+			<div class={style.header}>
 				{this.state.stChaged ? <h2>Изменения успешно применены!</h2> : ''}
-				<div class='avatar'>
+				<div class={style.avatar}>
 					<input type="file" id="file" onChange={(event)=>(this.setPhoto(event))}/>
 					<label for="file">Фото</label>
 					<img src={this.props.user ? this.props.user.profile.photo ? `${this.props.user.profile.photo}` : 'https://pypik.ru/uploads/posts/2018-09/1536907413_foto-net-no-ya-krasivaya-4.jpg' : ''} />
 				</div>
 				<h1>{this.props.user ? this.props.user.user.username : ''}</h1>
-				<button class='changeBtn' onClick={this.changeTheme}>{this.props.theme === 'black' ? 'Белая тема' : 'Темная тема'}</button>
-				<div class='description__d'>
+				<button class={style.changeBtn} onClick={this.changeTheme}>{this.props.theme === 'black' ? 'Белая тема' : 'Темная тема'}</button>
+				<div class={style.description}>
 					<textarea type="text" value={this.props.user ? this.props.user.profile.description : ''} ref={(input) => {this._Input = input}}/>
 				</div>
-				<button class='editBtn' onClick={this.setDescription}>Изменить</button>
+				<button class={style.editBtn} onClick={this.setDescription}>Изменить</button>
 
 			</div>
 		);
 	}
 }
 
-
-const mapToProps = ({
-	token,
-	user,
-	theme
-}) => ({
-	token,
-	user,
-	theme
+const mapToProps = (state) => ({
+	token: state.token,
+	user: state.user,
+	theme: state.theme
 });
 
 export default connect(mapToProps,actions)(ProfileEdit);

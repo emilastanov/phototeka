@@ -18,10 +18,15 @@ import SubList from './subList';
 
 class App extends Component {
 
-	render(props, state, context) {
+	handleRoute = e => {
+		this.currentUrl = e.url;
+	};
+
+	render(props,state,context) {
 		return (
 			<div id="app">
 				<Header />
+
 				<Router>
 					<Auth path="/" />
 					<Home path="/home" />

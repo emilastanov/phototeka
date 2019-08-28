@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style';
+import style from './style';
 import axios from 'axios';
 import { connect } from 'redux-zero/preact';
 import actions from '../../store/actions';
@@ -33,7 +33,7 @@ class CreatePost extends Component {
 				this._Input.value = '';
 				this.setState({ photo: null, isSuccess: true });
 
-			});
+			}).catch((err) => {});
 		}
 	};
 
@@ -41,15 +41,15 @@ class CreatePost extends Component {
 		this.setState({ error: null, isSuccess: false });
 	}
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
-			<div class='createPost'>
+			<div class={style.createPost}>
 				{this.state.isSuccess ? <h1>Пост успешно опубликован!</h1> : ''}
 				{this.state.error ? <h1 style={{ color: 'red' }}>{this.state.error}</h1> : ''}
 				<textarea placeholder="Описание" ref={(input) => {this._Input = input}}/>
 				<input type="file" onChange={(elem)=>{this.uploadFile(elem)}} multiple="multiple" id="files"/>
 				<label for="files">Загрузить фото</label>
-				<div class='photos'>
+				<div class={style.photos}>
 					<div>
 						{this.state.photo ? this.state.photo.map((item,key) => (
 							<img key={key} src={URL.createObjectURL(item)} alt="" />
@@ -62,10 +62,8 @@ class CreatePost extends Component {
 	}
 }
 
-const mapToProps = ({
-	token
-}) => ({
-	token
+const mapToProps = (state) => ({
+	token: state.token
 });
 
 export default connect(mapToProps, actions)(CreatePost);

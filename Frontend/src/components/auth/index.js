@@ -4,7 +4,7 @@ import { route } from 'preact-router';
 import axios from 'axios';
 import cookie from 'react-cookies';
 
-import './style';
+import style from './style';
 import actions from '../../store/actions';
 
 
@@ -39,7 +39,7 @@ class Auth extends Component {
 				console.log(res.data);
 				this.setState({isLoading: false})
 				route('/home',true);
-			});
+			}).catch((error) => {});
 		}).catch((error) => {
 			this.setState({isLoading: false})
 			if (error.response.data.non_field_errors) {
@@ -59,7 +59,7 @@ class Auth extends Component {
 			}).then((res) => {
 				this.setState({ isLoginForm: true, regIsSuccess: true, error: null })
 			}).catch((error) => {
-				this.setState({error: error.response.data.username})
+				error.response.data.username ? this.setState({error: error.response.data.username}) : this.setState({error: error.response.data.password})
 			});
 		} else {
 			this.setState({error: 'Пароли не совпадают!'})
@@ -77,33 +77,33 @@ class Auth extends Component {
 			}).then((res) => {
 				this.props.setUserData(res.data);
 				route('/home',true);
-			});
+			}).catch((error) => {});
 		}
 
 	}
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
 			<div>
 				{this.state.isLoginForm ?
-					<div className='auth'>
-						{this.state.isLoading ? <h1 class='loading'>Загрузка...</h1> : ''}
+					<div className={style.auth}>
+						{this.state.isLoading ? <h1 class={style.loading}>Загрузка...</h1> : ''}
 						<h1>Авторизация</h1>
 						{ this.state.error ? <p>{this.state.error}</p> : ''}
 						{ this.state.regIsSuccess ? <h3>Вы успешно зарегистрированы!</h3> : '' }
 						<input type="text" placeholder="Username" ref={ (input) => {this._UsernameInput = input}} />
 						<input type="password" placeholder="Password" ref={ (input) => {this._PasswordInput = input}}/>
-						<button className='login' onClick={this.login}> Войти</button>
-						<button className='reg' onClick={ () => {this.setState({ isLoginForm: false, isWrondData: false })} }> Регистрация</button>
+						<button className={style.login} onClick={this.login}> Войти</button>
+						<button className={style.reg} onClick={ () => {this.setState({ isLoginForm: false, isWrondData: false })} }> Регистрация</button>
 					</div> :
-					<div className='auth'>
+					<div className={style.auth}>
 						<h1>Регистрация</h1>
 						{ this.state.error ? <p>{this.state.error}</p> : '' }
 						<input type="text" placeholder="Username" ref={ (input) => {this._UsernameInput = input}}/>
 						<input type="password" placeholder="Password" ref={ (input) => {this._Password1Input = input}}/>
 						<input type="password" placeholder="Password" ref={ (input) => {this._Password2Input = input}}/>
-						<button className='login' onClick={this.reg}> Регистрация </button>
-						<button className='reg' onClick={ () => {this.setState({ isLoginForm: true })} }> Назад </button>
+						<button className={style.login} onClick={this.reg}> Регистрация </button>
+						<button className={style.reg} onClick={ () => {this.setState({ isLoginForm: true })} }> Назад </button>
 					</div>
 				}
 			</div>
@@ -111,10 +111,8 @@ class Auth extends Component {
 	}
 }
 
-const mapToProps = ({
-	token
-}) => ({
-	token
+const mapToProps = (state) => ({
+	token: state.token
 });
 
 export default connect(mapToProps, actions)(Auth);

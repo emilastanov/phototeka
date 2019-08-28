@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style.scss';
+import style from './style';
 import { Link } from 'preact-router/match';
 import axios from 'axios';
 import { connect } from 'redux-zero/preact';
@@ -33,7 +33,7 @@ class ProfileDetail extends Component {
 					this.setState({isMySub: true, subId: item.id})
 				}
 			});
-		});
+		}).catch((err) => {});
 	};
 
 
@@ -44,7 +44,7 @@ class ProfileDetail extends Component {
 			}
 		}).then((res) => {
 			this.props.setUserData(res.data);
-		});
+		}).catch((err) => {});
 	};
 
 
@@ -58,7 +58,7 @@ class ProfileDetail extends Component {
 			}
 		}).then((res) => {
 			this.setState({ posts: res.data.data });
-		});
+		}).catch((err) => {});
 	}
 	setSubscribe = () => {
 		if (!this.state.isMySub){
@@ -83,44 +83,41 @@ class ProfileDetail extends Component {
 			}).then((res) => {
 				this.setState({isMySub: false})
 				this.updateUserData();
-			});
+			}).catch((err) => {});
 		}
 	};
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
 			<div>
-				<div class='header__b'>
-					<div class='avatar'>
+				<div class={style.header}>
+					<div class={style.avatar}>
 						<img src={this.state.user ? this.state.user.profile.photo ? `${this.state.user.profile.photo}` : 'https://pypik.ru/uploads/posts/2018-09/1536907413_foto-net-no-ya-krasivaya-4.jpg' : ''} />
 					</div>
 					<h1>{this.state.user ? this.state.user.user.username : ''}</h1>
 					<a href="#" onClick={this.setSubscribe}>{this.state.isMySub ? 'Отписаться' : 'Подписаться'}</a>
-					<div class='info'>
+					<div class={style.info}>
 						<h5>{this.state.posts.length} {this.declOfNum(this.state.posts.length,['Публикация', 'Публикации','Публикаций'])}</h5>
 						<Link href='/sub/subscribers' onClick={()=>{this.props.setSubList(this.state.user.subscribers.data)}}><h5>{this.state.user ? this.state.user.subscribers.count : ''} {this.state.user ? this.declOfNum(this.state.user.subscribers.count,['Подписчик', 'Подписчика','Подписчиков']) : ''}</h5></Link>
 						<Link href='/sub/subscribtions' onClick={()=>{this.props.setSubList(this.state.user.subscribtions.data)}}><h5>{this.state.user ? this.state.user.subscribtions.count : ''} {this.state.user ? this.declOfNum(this.state.user.subscribtions.count,['Подписка', 'Подписки','Подписок']) : ''}</h5></Link>
 					</div>
 					<p>{this.state.user ? this.state.user.profile.description : ''}</p>
 				</div>
-				<div class='content'>
+				<div class={style.content}>
 					{this.state.posts.length > 0 ? this.state.posts.map((item,key) => (
-						<div class='item' key={key}>
+						<div class={style.item} key={key}>
 							<Link href={`/post/${item.info.id}`}><img src={`${item.images[0].img}`} alt="" /></Link>
 						</div>
-					)) : <h5 class='placeholder'>Нет публикаций.</h5>}
+					)) : <h5 class={style.placeholder}>Нет публикаций.</h5>}
 				</div>
 			</div>
 		);
 	}
 }
 
-const mapToProps = ({
-	token,
-	user
-}) => ({
-	token,
-	user
+const mapToProps = (state) => ({
+	token: state.token,
+	user: state.user
 });
 
 export default connect(mapToProps,actions)(ProfileDetail);

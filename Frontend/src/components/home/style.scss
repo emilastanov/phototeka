@@ -30,7 +30,7 @@
   margin: 0 auto;
   margin-top: 16px;
 
-  .header__a {
+  .header {
     display: grid;
     @include size(lg){
       height: 10%;

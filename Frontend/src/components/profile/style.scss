@@ -1,6 +1,6 @@
 @import "../style";
 
-.header__b {
+.header {
 
   height: 200px;
   margin: 0 auto;
@@ -57,6 +57,7 @@
       background: none;
       border: 0;
       box-shadow: none;
+      height: 0;
       h5 {
         text-align: center !important;
       }

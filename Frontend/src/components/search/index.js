@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style';
+import style from './style';
 import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 import { connect } from 'redux-zero/preact';
@@ -25,25 +25,25 @@ class Search extends Component {
 		}
 	};
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
 			<div>
-				<div class='search' >
+				<div class={style.search} >
 					<FaSearch />
 					<input type="text" onKeyPress={this.searchUser} ref={(input) => {this._Input = input}} />
 				</div>
 
 				{this.state.user ?
 					this.state.user.error ?
-						<div class='result'>
-							<div class='item'>
+						<div class={style.result}>
+							<div class={style.item}>
 								<h1 />
 								<h1 style={{width: '100%'}}>{this.state.user.error}</h1>
 							</div>
 						</div>:
-						<div class='result'>
-							<div class='item'>
-								<div class='avatar'>
+						<div class={style.result}>
+							<div class={style.item}>
+								<div class={style.avatar}>
 									{this.state.user.user.username !== this.props.user.user.username ?
 										<Link href={`/profile/${this.state.user.user.id}`}><img src={this.state.user.profile.photo ? `${this.state.user.profile.photo}` : 'https://pypik.ru/uploads/posts/2018-09/1536907413_foto-net-no-ya-krasivaya-4.jpg'} alt="a"/></Link>:
 										<Link href={`/profile`}><img src={this.state.user.profile.photo ? `${this.state.user.profile.photo}` : 'https://pypik.ru/uploads/posts/2018-09/1536907413_foto-net-no-ya-krasivaya-4.jpg'} alt="a"/></Link>}
@@ -58,12 +58,9 @@ class Search extends Component {
 	}
 }
 
-const mapToProps = ({
-	token,
-	user
-}) => ({
-	token,
-	user
+const mapToProps = (state) => ({
+	token: state.token,
+	user: state.user
 });
 
 export default connect(mapToProps, actions)(Search);

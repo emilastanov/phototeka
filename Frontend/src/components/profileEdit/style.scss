@@ -1,7 +1,7 @@
 @import "../style";
 @import "../profile/style";
 
-.description__d {
+.description {
   position: absolute;
   @include size(lg){
     top: 85px;
@@ -22,7 +22,7 @@
 
   }
 }
-.header__c {
+.header {
   height: 250px !important;
   .editBtn {
     right: 20px;

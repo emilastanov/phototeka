@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style';
+import style from './style';
 import { FaHeart, FaComment } from 'react-icons/fa';
 import axios from 'axios';
 import { Link } from 'preact-router';
@@ -51,10 +51,8 @@ class Home extends Component {
 			}
 		}).then((res) => {
 			this.setState({data: res.data.data});
-		}).catch((err) => {
-			console.log(this.props);
-			console.log(this.state);
-		});
+
+		}).catch((err) => {});
 	};
 
 	componentDidMount() {
@@ -63,25 +61,25 @@ class Home extends Component {
 	}
 
 
-	render (props, state, context) {
+	render (props,state,context) {
 		return (
-			<div class='posts'>
+			<div class={style.posts}>
 				{this.state.data.length > 0 ? this.state.data.map((item,key) => {
 					const date = new Date(item.info.date);
 					return (
-						<div className='post' key={key}>
-							<div className='header__a'>
-								<div className='avatar'>
+						<div className={style.post} key={key}>
+							<div className={style.header}>
+								<div className={style.avatar}>
 									<Link href={`/profile/${item.owner.user.id}`}>
 										<img src={item.owner.profile.photo ? `${item.owner.profile.photo}` : 'https://pypik.ru/uploads/posts/2018-09/1536907413_foto-net-no-ya-krasivaya-4.jpg'} alt=""/>
 									</Link>
 								</div>
 								<h1>{item.owner.user.username}</h1>
 							</div>
-							<div className='body'>
+							<div className={style.body}>
 								<Link href={`/post/${item.info.id}`}><img src={`${item.images[0].img}`} alt=""/></Link>
 							</div>
-							<div className='footer'>
+							<div className={style.footer}>
 								<div><FaHeart onClick={() => {this.setLike(item)}} style={{cursor: 'pointer'}} /></div>
 								<div>{item.likes.count}</div>
 								<div><FaComment /></div>
@@ -98,12 +96,9 @@ class Home extends Component {
 	}
 }
 
-const mapToProps = ({
-	token,
-	user
-}) => ({
-	token,
-	user
+const mapToProps = (state) => ({
+	token: state.token,
+	user: state.user
 });
 
 export default connect(mapToProps, actions)(Home);

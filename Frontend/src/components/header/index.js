@@ -1,5 +1,5 @@
 import { Link } from 'preact-router/match';
-import './style';
+import style from './style';
 import { FaUser, FaHome, FaSearch, FaInstagram } from 'react-icons/fa';
 import { connect } from 'redux-zero/preact';
 import { h, Component } from 'preact';
@@ -14,18 +14,18 @@ class Header extends Component {
 		document.title = 'Phototeka';
 	}
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
-			<header class={`header ${this.props.theme === 'black' ? 'black' : 'white'}`}>
+			<header class={`${style.header} ${this.props.theme === 'black' ? style.black : style.white}`}>
 				<h1>Phototeka</h1>
 				{this.props.token ? <nav>
-					<Link activeClassName='active' href="/search">
+					<Link activeClassName={style.active} href="/search">
 						<FaSearch />
 					</Link>
-					<Link activeClassName='active' href="/home">
+					<Link activeClassName={style.active} href="/home">
 						<FaHome />
 					</Link>
-					<Link activeClassName='active' href="/profile">
+					<Link activeClassName={style.active} href="/profile">
 						<FaUser />
 					</Link>
 				</nav> : null}
@@ -34,12 +34,9 @@ class Header extends Component {
 	}
 }
 
-const mapToProps = ({
-	token,
-	theme
-}) => ({
-	token,
-	theme
+const mapToProps = (state) => ({
+	token: state.token,
+	theme: state.theme
 });
 
 export default connect(mapToProps)(Header);

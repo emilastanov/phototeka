@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style';
+import style from './style';
 import { Link } from 'preact-router/match';
 import { FaDoorOpen } from 'react-icons/fa';
 import axios from 'axios';
@@ -30,7 +30,7 @@ class Profile extends Component {
 			this.props.setUserData(null);
 
 			route('/',true);
-		});
+		}).catch((err) => {});
 	};
 
 	declOfNum = (number, titles) => {
@@ -44,27 +44,29 @@ class Profile extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`/api/v1/post/user/${this.props.user.user.id}/`,{
-			headers: {
-				Authorization: `Token ${this.props.token}`
-			}
-		}).then((res) => {
-			console.log(res.data.data);
-			this.setState({ posts: res.data.data });
-		});
+		if (this.props.user) {
+			axios.get(`/api/v1/post/user/${this.props.user.user.id}/`,{
+				headers: {
+					Authorization: `Token ${this.props.token}`
+				}
+			}).then((res) => {
+				console.log(res.data.data);
+				this.setState({ posts: res.data.data });
+			}).catch((err) => {});
+		}
 	}
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
 			<div>
-				<div class='header__b'>
-					<div class='avatar'>
+				<div class={style.header}>
+					<div class={style.avatar}>
 						<img src={this.props.user ? this.props.user.profile.photo ? `${this.props.user.profile.photo}` : 'https://pypik.ru/uploads/posts/2018-09/1536907413_foto-net-no-ya-krasivaya-4.jpg' : ''} alt="a"/>
 					</div>
 					<h1>{this.props.user ? this.props.user.user.username : ''}</h1>
 					<button onClick={this.logout}><FaDoorOpen /></button>
 					<Link href="/profile/edit">Редактировать</Link>
-					<div class='info'>
+					<div class={style.info}>
 						<h5>{this.state.posts.length} {this.declOfNum(this.state.posts.length,['Публикация', 'Публикации','Публикаций'])}</h5>
 						<Link href="/sub/subscribers" onClick={()=>{this.props.setSubList(this.props.user.subscribers.data)}}><h5>{this.props.user ? this.props.user.subscribers.count: ''} {this.props.user ? this.declOfNum(this.props.user.subscribers.count,['Подписчик', 'Подписчика','Подписчиков']):''}</h5></Link>
 						<Link href="/sub/subscribtions" onClick={()=>{this.props.setSubList(this.props.user.subscribtions.data)}}><h5>{this.props.user ? this.props.user.subscribtions.count: ''} {this.props.user ? this.declOfNum(this.props.user.subscribtions.count,['Подписка', 'Подписки','Подписок']): ''}</h5></Link>
@@ -72,27 +74,24 @@ class Profile extends Component {
 					<p>{this.props.user ? this.props.user.profile.description : ''}</p>
 
 				</div>
-				<div class='createPost'>
-					<Link href="/createPost" class='postBtn'>Выложить пост</Link>
+				<div class={style.createPost}>
+					<Link href="/createPost" class={style.postBtn}>Выложить пост</Link>
 				</div>
-				<div class='content'>
+				<div class={style.content}>
 					{this.state.posts.length > 0 ? this.state.posts.map((item,key) => (
-						<div class='item' key={key}>
+						<div class={style.item} key={key}>
 							<Link href={`/post/${item.info.id}`}><img src={`${item.images[0].img}`} alt="" /></Link>
 						</div>
-					)) : <h5 class='placeholder'>У вас нет публикаций.</h5>}
+					)) : <h5 class={style.placeholder}>У вас нет публикаций.</h5>}
 				</div>
 			</div>
 		);
 	}
 }
 
-const mapToProps = ({
-	token,
-	user
-}) => ({
-	token,
-	user
+const mapToProps = (state) => ({
+	token: state.token,
+	user: state.user
 });
 
 export default connect(mapToProps,actions)(Profile);

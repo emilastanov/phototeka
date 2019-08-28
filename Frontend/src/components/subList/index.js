@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import './style';
+import style from './style';
 import axios from 'axios';
 
 import { connect } from 'redux-zero/preact';
@@ -22,7 +22,7 @@ class SubList extends Component {
 						}
 					}).then((res) => {
 						this.setState({list: [ ...this.state.list, res.data.user.username]})
-					});
+					}).catch((err) => {});
 				});
 				break;
 			case 'subscribers':
@@ -33,17 +33,17 @@ class SubList extends Component {
 		}
 	}
 
-	render(props, state, context) {
+	render(props,state,context) {
 		return (
 			<div>
-				<div class='result' style={{marginTop: 95}}>
+				<div class={style.result} style={{marginTop: 95}}>
 					{this.state.list.length > 0 ?
 						this.state.list.map((item,key) => (
-							<div class='item' key={key} >
+							<div class={style.item} key={key} >
 								<h1 />
 								<h1 style={{width: '100%'}}>{item}</h1>
 							</div>
-						)) : <div class='item' >
+						)) : <div class={style.item} >
 							<h1 />
 							<h1 style={{width: '100%', textAlign: 'center'}}>Пусто...</h1>
 						</div>}
@@ -54,15 +54,10 @@ class SubList extends Component {
 	}
 }
 
-
-const mapToProps = ({
-	token,
-	user,
-	subList
-}) => ({
-	token,
-	user,
-	subList
+const mapToProps = (state) => ({
+	token: state.token,
+	user: state.user,
+	subList: state.subList
 });
 
 export default connect(mapToProps, actions)(SubList);
