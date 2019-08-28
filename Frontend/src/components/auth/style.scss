@@ -1,0 +1,66 @@
+@import "../style";
+
+.auth {
+  @include block;
+  margin: 0 auto;
+  @include size(lg){
+    width: 350px;
+    margin-top: 85px;
+  }
+  @include size(sm){
+    width: 90%;
+    margin-top: 95px;
+  }
+  h1 {
+    margin: 8px 0 16px 26px;
+  }
+  input {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 17px;
+    margin-bottom: 16px;
+    @include block;
+    padding: 8px;
+  }
+  button {
+    display: block;
+    @include block;
+    margin: 0 auto;
+    width: 85%;
+    padding: 8px;
+    font-size: 17px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+
+  .login {
+    background: #aae1ba;
+    color: #ffffff;
+  }
+
+  .login:hover {
+    box-shadow: inset 2px 2px 3px #afafaf;
+  }
+  .reg {
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: #9b9b9b;
+    font-size: 14px;
+  }
+  p {
+    text-align: center;
+    color: #a70200;
+  }
+  h3 {
+    text-align: center;
+    color: #36a700;
+  }
+  .loading {
+    text-align: center;
+    color: #afafaf;
+  }
+}
+
+

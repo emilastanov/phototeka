@@ -1,0 +1,75 @@
+@import "../style";
+
+.search {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 85px;
+  @include size(lg) {
+    width: 650px;
+  }
+  @include size(sm){
+    width: 90%;
+  }
+  height: 35px;
+  @include block;
+  input {
+    border: 0;
+    padding: 0;
+    height: 90%;
+    @include size(lg){
+      margin-left: 7%;
+      width: 90%;
+      font-size: 27px;
+    }
+    @include size(sm){
+      margin-left: 10%;
+      width: 80%;
+      font-size: 17px;
+    }
+
+    border-bottom: 1px solid #afafaf;
+    border-radius: 0;
+  }
+  svg:first-child {
+    position: absolute;
+    left: 2.5%;
+    top: 25%;
+  }
+}
+.result {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 15px;
+  @include size(lg) {
+    width: 650px;
+  }
+  @include size(sm){
+    width: 90%;
+  }
+  @include block;
+  .item {
+    width: 100%;
+    height: 45px;
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    border-bottom: 1px solid #d7d7d7;;
+    .avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px #d7d7d7 solid;
+      margin: 5px;
+      position: relative;
+      img {
+        @include img-aline-center;
+      }
+    }
+    h1 {
+      width: 50%;
+      float: left;
+      margin: 10px 0 10px 2px;
+      font-size: 23px;
+    }
+  }
+}

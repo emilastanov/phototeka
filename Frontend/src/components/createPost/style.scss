@@ -1,0 +1,87 @@
+@import "../style";
+
+.createPost {
+  @include block;
+  margin: 0 auto;
+  @include size(lg){
+    width: 650px;
+    margin-top: 85px;
+  }
+  @include size(sm) {
+    width: 90%;
+    margin-top: 75px;
+  }
+  h1 {
+    text-align: center;
+    color: #36a700;
+  }
+  textarea {
+    display: block;
+    width: 90%;
+    margin: 20px auto 0 auto;
+    height: 70px;
+    font-size: 17px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+  }
+  input {
+    display: none;
+  }
+  label {
+    display: block;
+    width: 90%;
+    margin: 20px auto 0 auto;
+    background: #aae1ba;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .photos {
+    position: relative;
+    width: 90%;
+    height: 250px;
+    margin: 20px auto 0 auto;
+    overflow: hidden;
+    h1 {
+      display: block;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      color: black;
+    }
+    div {
+      display: flex;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      height: 95%;
+      padding: 5px;
+      width: auto;
+      border: 1px solid #afafaf;
+      border-radius: 5px;
+      img {
+        display: block;
+        width: auto;
+        float: left;
+        height: 95%;
+        border-radius: 5px;
+        margin: 5px;
+      }
+    }
+
+  }
+  button {
+    display: block;
+    border: 0;
+    font-size: 17px;
+    width: 90%;
+    margin: 16px auto 20px auto;
+    background: #aae1ba;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+}

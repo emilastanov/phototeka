@@ -1,0 +1,112 @@
+@import "../style";
+@import "../home/style";
+
+
+.comments {
+  @include block;
+  @include size(lg) {
+    width: 650px;
+    margin-bottom: 16px;
+  }
+  @include size(sm){
+    width: 90%;
+    margin-bottom: 85px;
+  }
+  margin: 0 auto;
+  margin-top: 16px;
+
+  .item {
+    width: 95%;
+    margin: 0 auto;
+    border-bottom: 1px solid #d7d7d7;
+    h4 {
+      margin: 8px 0 0 0;
+    }
+    p {
+      margin: 8px 0 8px 0;
+    }
+  }
+}
+
+.commentForm {
+  @include block;
+  @include size(lg) {
+    width: 650px;
+  }
+  @include size(sm) {
+    width: 90%;
+  }
+  margin: 0 auto;
+  margin-top: 16px;
+  height: 50px;
+  position: relative;
+  input {
+    padding: 5px;
+    border: 0;
+    border-bottom: 1px solid #d7d7d7;
+    font-size: 18px;
+    @include size(lg){
+      width: 76%;
+    }
+    @include size(sm){
+      width: 65%;
+    }
+    margin: 8px 0 0 16px;
+  }
+  button {
+    border: 1px solid #d7d7d7;
+    background: white;
+    border-radius: 5px;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    height: 30px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 15px;
+  }
+}
+.deleteBtn {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  font-size: 25px;
+  background: none;
+  border: 0;
+  color: #870000;
+  cursor: pointer;
+}
+.arrow {
+  position: relative;
+  height: 100%;
+  .left , .right {
+    font-size: 50px;
+    opacity: 0.5;
+    position: absolute;
+    top: 45%;
+    cursor: pointer;
+  }
+  .left {
+    left: 0;
+  }
+  .right {
+    right: 0;
+  }
+}
+.description {
+  @include block;
+  margin: 0 auto;
+  margin-top: 16px;
+  @include size(lg){
+    width: 650px;
+  }
+  @include size(sm){
+    width: 90%;
+  }
+  p {
+    margin: 16px;
+    a {
+      text-decoration: none;
+    }
+  }
+}

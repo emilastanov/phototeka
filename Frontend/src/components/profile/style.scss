@@ -1,0 +1,200 @@
+@import "../style";
+
+.header__b {
+
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+  @include size(lg){
+    margin-top: 85px;
+    width: 650px;
+  }
+  @include size(sm){
+    margin-top: 75px;
+    width: 90%;
+  }
+  position: relative;
+
+  @include block;
+  .avatar {
+    @include size(lg){
+      width: 150px;
+      height: 150px;
+    }
+    @include size(sm){
+      width: 55px;
+      height: 55px;
+    }
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px #d7d7d7 solid;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ffffff;
+    img {
+      @include img-aline-center;
+    }
+  }
+  h1 {
+    position: absolute;
+    @include size(lg){
+      left: 190px;
+      top: 20px;
+    }
+    @include size(sm){
+      left: 90px;
+      font-size: 25px;
+      top: 13px;
+    }
+
+  }
+  .info {
+    a {
+      position: static;
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: 0;
+      box-shadow: none;
+      h5 {
+        text-align: center !important;
+      }
+    }
+    position: absolute;
+    @include size(lg){
+      left: 190px;
+      top: 65px;
+
+      width: 430px;
+      h5:first-child {
+        text-align: left;
+      }
+      h5:last-child {
+        text-align: right;
+      }
+    }
+    @include size(sm){
+      left: 24px;
+      top: 60px;
+      width: 380px;
+      text-align: center;
+
+      h5 {
+        width: 80px;
+      }
+    }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  a, button {
+    position: absolute;
+    @include size(lg){
+      top: 45px;
+      right: 25px;
+    }
+    @include size(sm){
+      top: 30px;
+      right: 20px;
+    }
+    background: #ebebeb;
+    border: 1px solid #d7d7d7;
+    height: 20px;
+    width: 150px;
+    padding: 5px;
+    color: black;
+    text-decoration: none;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 1px 1px 2px #d7d7d7;
+  }
+
+  button {
+    width: 35px;
+    height: 32px;
+    font-size: 17px;
+    cursor: pointer;
+    @include size(lg){
+      top: 45px;
+      right: 200px;
+    }
+    @include size(sm){
+      top: 30px;
+      right: 190px;
+    }
+  }
+
+  p {
+    position: absolute;
+    @include size(lg){
+      left: 190px;
+      top: 95px;
+    }
+    @include size(sm){
+      left: 25px;
+      top: 115px;
+      border-top: 1px solid #afafaf;
+      width: 86%;
+      padding-top: 3px;
+    }
+    color: #5f5f5f;
+  }
+}
+.createPost {
+  @include block;
+  margin: 0 auto;
+  margin-top: 16px;
+  @include size(lg) {
+    width: 650px;
+  }
+  @include size(sm) {
+    width: 90%;
+  }
+  height: 40px;
+  .postBtn {
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+    text-align: center;
+    padding-top: 10px;
+    text-decoration: none;
+    color: #5f5f5f;
+  }
+
+}
+.content {
+  @include size(lg){
+    width: 650px;
+    grid-template-columns: (650px/3) (650px/3) (650px/3);
+    grid-auto-rows: (650px/3) (650px/3) (650px/3);
+  }
+  @include size(sm){
+    width: 90%;
+    grid-template-columns: 3fr 3fr 3fr;
+    grid-auto-rows: 125px 125px 125px;
+  }
+  margin: 0 auto;
+  margin-top: 16px;
+  @include block;
+  display: grid;
+  overflow: hidden;
+  .item {
+    overflow: hidden;
+    position: relative;
+    outline: 1px solid #d7d7d7;
+    img {
+      @include img-aline-center;
+    }
+  }
+  .placeholder {
+    margin: auto;
+    transform: rotate(-45deg);
+    text-align: center;
+    @include size(sm) {
+      margin: 33px 0 0 33px;
+    }
+  }
+}
